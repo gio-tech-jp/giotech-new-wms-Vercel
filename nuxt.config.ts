@@ -2,7 +2,7 @@ export default defineNuxtConfig({
   ssr: false, // SPAモード
   devtools: { enabled: true },
   modules: ['@nuxtjs/supabase', '@pinia/nuxt'],
-  css: ['/assets/css/main.css'],
+  css: ['assets/css/main.css'],
 // ▼▼ ここを追加してください ▼▼
   nitro: {
     preset: 'vercel',
