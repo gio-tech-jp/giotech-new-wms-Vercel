@@ -2,6 +2,9 @@
   "name": "gio-cloud",
   "type": "module",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
@@ -19,4 +22,5 @@
     "pinia": "^2.3.0",
     "@nuxtjs/supabase": "^1.4.1"
   }
+  
 }
