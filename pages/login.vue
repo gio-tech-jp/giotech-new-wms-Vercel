@@ -1,38 +1,40 @@
 <template>
-  <div class="login-wrap">
-    <div class="login-box">
-      <h2>GIO CLOUD</h2>
-      <p class="text-xs mb-4 text-gray-500">初回は「登録」、2回目以降は「ログイン」</p>
-      
-      <input v-model="email" type="email" placeholder="メールアドレス" class="w-full mb-2">
-      <input v-model="password" type="password" placeholder="パスワード(6文字以上)" class="w-full mb-4">
-      
-      <div class="flex gap-2">
-        <button class="btn btn-primary w-full" @click="signIn">ログイン</button>
-        <button class="btn btn-secondary w-full" @click="signUp">新規登録</button>
-      </div>
-      <p v-if="msg" class="text-red-500 text-xs mt-2">{{ msg }}</p>
+  <div class="login-box">
+    <div style="font-size:24px; font-weight:800; color:#0f172a; margin-bottom:20px;">GIO SYSTEM</div>
+    
+    <div v-if="step===1">
+      <input v-model="id" type="text" placeholder="ID (admin / user01)">
+      <input v-model="pass" type="password" placeholder="Pass (admin / 1234)">
+      <button class="btn btn-primary btn-full" @click="check">次へ</button>
+    </div>
+    
+    <div v-else>
+      <p style="margin-bottom:15px;">認証コード: 1234</p>
+      <input v-model="code" type="text" placeholder="Code" style="text-align:center;">
+      <button class="btn btn-primary btn-full" @click="doLogin">ログイン</button>
     </div>
   </div>
 </template>
 
 <script setup>
 definePageMeta({ layout: 'login' })
-const client = useSupabaseClient()
-const router = useRouter()
-const email = ref('')
-const password = ref('')
-const msg = ref('')
+import { useMainStore } from '~/stores/index'
+const store = useMainStore()
+const step = ref(1), id = ref(''), pass = ref(''), code = ref('')
 
-const signIn = async () => {
-  const { error } = await client.auth.signInWithPassword({ email: email.value, password: password.value })
-  if (error) msg.value = error.message
-  else router.push('/')
+const check = () => {
+  // 本来はストアのアクションでチェックするが簡易的に
+  if(id.value && pass.value) step.value = 2
+  else alert('IDとパスワードを入力してください')
 }
 
-const signUp = async () => {
-  const { error } = await client.auth.signUp({ email: email.value, password: password.value })
-  if (error) msg.value = error.message
-  else alert('登録しました！ログインしてください。')
+const doLogin = async () => {
+  if(code.value === '1234') {
+    const success = await store.login(id.value, pass.value)
+    if(success) navigateTo('/')
+    else alert('ログイン失敗: IDまたはパスワードが違います')
+  } else {
+    alert('コードが違います')
+  }
 }
 </script>
