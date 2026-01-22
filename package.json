@@ -13,7 +13,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@vue/shared": "latest",
+    "@vue/shared": "^3.5.27",
     "nuxt": "^4.2.2",
     "ufo": "latest",
     "vue": "^3.5.13",
