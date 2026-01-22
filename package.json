@@ -13,17 +13,16 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-   "nuxt": "^4.2.2",
-   "vue": "^3.5.13",
-   "vue-router": "^4.5.0",
-   "vue-bundle-renderer": "latest",
-   "@vue/shared": "latest",
-   "ufo": "latest"
+    "@vue/shared": "latest",
+    "nuxt": "^4.2.2",
+    "ufo": "latest",
+    "vue": "^3.5.13",
+    "vue-bundle-renderer": "^2.2.0",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@nuxtjs/supabase": "^1.4.1",
     "@pinia/nuxt": "^0.9.0",
-    "pinia": "^2.3.0",
-    "@nuxtjs/supabase": "^1.4.1"
+    "pinia": "^2.3.0"
   }
-  
 }
