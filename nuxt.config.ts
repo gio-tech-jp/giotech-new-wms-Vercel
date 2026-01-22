@@ -6,6 +6,10 @@ export default defineNuxtConfig({
 // ▼▼ ここを追加してください ▼▼
   nitro: {
     preset: 'vercel',
+    // 依存関係を確実に含めるための設定
+    externals: {
+      inline: ['vue-bundle-renderer', '@vue/shared']
+    }
   },
   // ▲▲ ここまで ▲▲
   supabase: {
