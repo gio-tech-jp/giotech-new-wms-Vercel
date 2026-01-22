@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    
     <div v-if="!store.user" style="display: flex; flex-direction: column; justify-content: center; padding: 20px; height: 100vh; box-sizing: border-box;">
       <div class="card" style="text-align: center;">
         <h1 style="color:var(--primary);">GIO SYSTEM</h1>
@@ -39,18 +38,6 @@
               <button class="btn btn-secondary" @click="alert('退勤しました（デモ）')">退勤</button>
             </div>
           </div>
-
-          <div class="card">
-            <h2>最近の活動</h2>
-            <div class="list-item">
-              <span>01/22 出勤</span>
-              <span style="font-weight: bold;">08:55</span>
-            </div>
-            <div class="list-item">
-              <span>01/21 退勤</span>
-              <span style="font-weight: bold;">18:05</span>
-            </div>
-          </div>
         </div>
 
         <div v-if="page === 'admin'">
@@ -63,31 +50,24 @@
               </div>
               <span class="badge">{{ u.role }}</span>
             </div>
-            <button class="btn btn-outline" style="margin-top: 15px;">＋ 社員を追加</button>
-          </div>
-
-          <div class="card">
-            <h2>勤怠データ出力</h2>
-            <p style="font-size: 14px; color: #64748b; margin-bottom: 10px;">今月の全社員の勤怠データをCSVで出力します。</p>
-            <button class="btn btn-primary">CSVダウンロード</button>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script setup>
+// ★ここが重要: Supabaseではなく、ストアだけを読み込む
 import { useMainStore } from '~/stores/index'
 const store = useMainStore()
+
 const loginId = ref('')
 const loginPass = ref('')
 const page = ref('home')
 const dateStr = ref('')
 const timeStr = ref('')
 
-// 時計更新
 setInterval(() => {
   const now = new Date()
   dateStr.value = now.toLocaleDateString('ja-JP', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
